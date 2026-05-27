@@ -5,35 +5,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 public class HelloController {
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello, World!";
-    }
+    @RestController
+    public class CalculatorController {
 
-    @GetMapping("/greet")
-    public String greet(@RequestParam(defaultValue = "Guest") String name){
-        return "Hello, " + name + "!";
-    }
-
-    @GetMapping("/info")
-    public AppInfo getInfo(){
-        return new AppInfo("First Spring Boot App", "1.0.0");
-    }
-
-    static class AppInfo {
-        private String name;
-        private String version;
-
-        public AppInfo(String name, String version){
-            this.name = name;
-            this.version = version;
-        }
-        public String getName(){
-            return name;
+        @GetMapping("/add")
+        public int add(@RequestParam int a, @RequestParam int b) {
+            return a + b;
         }
 
-        public String getVersion(){
-            return  version;
+        @GetMapping("/subtract")
+        public int subtract(@RequestParam int a, @RequestParam int b) {
+            return a - b;
+        }
+
+        @GetMapping("/multiply")
+        public int multiply(@RequestParam int a, @RequestParam int b) {
+            return a * b;
+        }
+
+        @GetMapping("/divide")
+        public String divide(@RequestParam int a, @RequestParam int b) {
+            if (b == 0) {
+                return "Error: Division by zero!";
+            }
+            return String.valueOf(a / b);
         }
     }
 }
